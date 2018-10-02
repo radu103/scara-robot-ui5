@@ -1,0 +1,124 @@
+{
+  "_version": "1.9.0",
+  "start_url": "index.html",
+  "sap.app": {
+    "id": "com.scara.robot.arm",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "dataSources": {
+      "RMTSAMPLEFLIGHT": {
+        "uri": "/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      }
+    },
+    "sourceTemplate": {
+      "id": "ui5template.basicSAPUI5ApplicationProject",
+      "version": "1.40.12"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    },
+    "supportedThemes": [
+      "sap_belize_hcw",
+      "sap_belize_hcb",
+      "sap_belize_plus",
+      "sap_belize"
+    ],
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    }
+  },
+  "sap.ui5": {
+    "config": {
+      "fullWidth": true
+    },
+    "handleValidation": true,
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.scara.robot.arm.i18n.i18n"
+        }
+      },
+      "odata": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "dataSource": "RMTSAMPLEFLIGHT",
+        "settings": {
+          "defaultBindingMode": "TwoWay"
+        },
+        "preload": true
+      }
+    },
+    "rootView": {
+      "viewName": "com.scara.robot.arm.view.App",
+      "id": "appView",
+      "type": "XML",
+      "async": true,
+      "height": "100%"
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "com.scara.robot.arm.view",
+        "controlId": "appView",
+        "controlAggregation": "pages",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "RouteApp",
+          "pattern": "",
+          "target": ["TargetApp"]
+        }
+      ],
+      "targets": {
+        "TargetApp": {
+          "viewName": "App",
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false
+        }
+      }
+    },
+    "dependencies": {
+      "minUI5Version": "1.60",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {}
+      }
+    },
+    "resources": {
+      "js": [],
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    }
+  }
+}

@@ -1,0 +1,38 @@
+<core:FragmentDefinition
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+
+    <Panel headerText="Joint Values" class="sapUiResponsiveMargin" expandable="true" expanded="true" width="auto">
+        <content>
+
+            <FlexBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
+                <VBox class="sapUiSmallMarginEnd">
+                    <Label text="IP" wrapping="false"/> 
+                </VBox>
+                <VBox>
+                    <Input value="192.168.1.4" placeholder="i.i.i.i" width="200px"/>
+                </VBox>
+            </FlexBox>
+
+            <HBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
+                <VBox class="sapUiSmallMarginEnd">
+                    <Label text="Steps" wrapping="true"/>
+                </VBox>
+                <VBox>
+                    <StepInput value="0" displayValuePrecision="0" min="-600" max="600" step="1" width="200px"/>
+                </VBox>
+            </HBox>
+
+            <HBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center">
+                <VBox class="sapUiSmallMarginEnd">
+                        <Label text="Angle" wrapping="true"/>
+                </VBox>
+                <VBox>
+                    <StepInput value="0" displayValuePrecision="2" min="-180" max="180" step="10" width="200px"/>
+                </VBox>
+            </HBox>
+
+        </content>
+    </Panel>
+
+</core:FragmentDefinition>

@@ -1,0 +1,24 @@
+<mvc:View 
+	controllerName="com.scara.robot.arm.controller.App" 
+	xmlns="sap.m"
+	xmlns:l="sap.ui.layout"
+	xmlns:core="sap.ui.core"
+	xmlns:html="http://www.w3.org/1999/xhtml"
+	xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true">
+	<App id="appView">
+		<pages>
+			<Page title="{i18n>title}">
+				<content>
+					<VBox width="auto" alignItems="Center" class="sapUiResponsiveMargin">
+						<core:Fragment id="baseJointFragment" fragmentName="com.scara.robot.arm.view.fragments.RobotJoint" type="XML"/>
+						<core:Fragment id="bodySliderFragment" fragmentName="com.scara.robot.arm.view.fragments.RobotJoint" type="XML"/>
+						<core:Fragment id="armJointFragment" fragmentName="com.scara.robot.arm.view.fragments.RobotJoint" type="XML"/>
+						<core:Fragment id="toolFragment" fragmentName="com.scara.robot.arm.view.fragments.RobotJoint" type="XML"/>
+						<Button text="Send New Values" press="onMovePress" type="Emphasized"/>
+					</VBox>
+				</content>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
