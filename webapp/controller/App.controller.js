@@ -19,6 +19,8 @@ sap.ui.define([
 			robotModel.setData(data);
 
 			this.setModel(robotModel, "robotModel");
+
+			this.baseCheckIP();
 		},
 
 		onBeforeRendering: function() {
@@ -32,6 +34,23 @@ sap.ui.define([
 		onExit: function() {
 
     	},
+
+		baseCheckIP: function(oEvent){
+
+			var oView = this.getView();
+			
+			var oSwitch = oView.byId("baseSwitch");
+			var ip = oView.byId("baseJointIP").getValue();
+			
+			$.getJSON("http://" + ip + "/position")
+				.error(function(error){
+					console.log(error);
+					oSwitch.setState(false);
+				})
+				.success(function(data){
+					oSwitch.setState(true);
+				});
+		},
 
 		onMovePress: function (oEvent) {
 			

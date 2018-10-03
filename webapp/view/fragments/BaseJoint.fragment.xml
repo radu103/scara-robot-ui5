@@ -10,7 +10,14 @@
                     <Label text="IP" wrapping="false"/> 
                 </VBox>
                 <VBox>
-                    <Input id="baseJointIP" value="192.168.1.4" placeholder="i.i.i.i" width="200px" textAlign="Right"/>
+                    <Input id="baseJointIP" value="192.168.1.4" placeholder="i.i.i.i" width="200px" textAlign="Right" liveChange="baseCheckIP"/>
+                </VBox>
+                <VBox class="sapUiSmallMarginEnd">
+                    <Switch id="baseSwitch" type="AcceptReject" state="false" enabled="false">
+                        <layoutData>
+                            <FlexItemData growFactor="1" />
+                        </layoutData>
+                    </Switch>
                 </VBox>
             </FlexBox>
 
@@ -21,6 +28,9 @@
                 <VBox>
                     <StepInput id="baseJointSteps" value="0" displayValuePrecision="0" min="-600" max="600" step="1" width="200px"/>
                 </VBox>
+                <VBox>
+                    <Text text=""/>
+                </VBox>
             </HBox>
 
             <HBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center" width="auto">
@@ -29,6 +39,9 @@
                 </VBox>
                 <VBox>
                     <StepInput id="baseJointAngle" value="0" displayValuePrecision="2" min="-180" max="180" step="10" width="200px"/>
+                </VBox>
+                <VBox>
+                    <Text text=""/>
                 </VBox>
             </HBox>
 
