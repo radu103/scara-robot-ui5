@@ -7,20 +7,39 @@ sap.ui.define([
 
 	return BaseController.extend("com.scara.robot.arm.controller.App", {
 
+		busyDialogModel : null,
+		robotModel : null,
+
 		onInit: function() {
-			
-			var robotModel = new JSONModel();
+
+			// busy Dialog Model
+			this.busyDialogModel = new JSONModel();
+
+			var busy = {
+				title : "for server",
+				text : "waiting"
+			}
+
+			this.busyDialogModel.setData(busy);
+
+			this.setModel(this.busyDialogModel, "busyDialog");
+
+			// Robot Model
+			this.robotModel = new JSONModel();
 
 			var data = {
 				baseSteps : 0,
-				baseAngle : 0
+				baseAngle : 0,
+				bodySteps : 0,
+				bodyAngle : 0
 			};
 
-			robotModel.setData(data);
+			this.robotModel.setData(data);
 
-			this.setModel(robotModel, "robotModel");
+			this.setModel(this.robotModel, "robotModel");
 
 			this.baseCheckIP();
+			this.bodyCheckIP();
 		},
 
 		onBeforeRendering: function() {
@@ -35,7 +54,51 @@ sap.ui.define([
 
     	},
 
-		baseCheckIP: function(oEvent){
+		onBaseResetPress : function(){
+			
+			this.onOpenDialog("Reseting Base...");
+
+			var oController = this;
+
+			var oView = this.getView();
+			var baseIP = oView.byId("baseJointIP").getValue();
+
+			$.getJSON("http://" + baseIP + "/reset")
+				.error(function(error){
+					console.log(error);
+				})
+				.success(function(data){
+					console.log(data);
+				});
+
+			setTimeout(function(){
+				oController._dialog.close();
+			}, 5000);
+		},
+
+		onBodyResetPress : function(){
+			
+			this.onOpenDialog("Reseting Body...");
+
+			var oController = this;
+
+			var oView = this.getView();
+			var bodyIP = oView.byId("bodySliderIP").getValue();
+
+			$.getJSON("http://" + bodyIP + "/reset")
+				.error(function(error){
+					console.log(error);
+				})
+				.success(function(data){
+					console.log(data);
+				});
+
+			setTimeout(function(){
+				oController._dialog.close();
+			}, 5000);
+		},
+
+		baseCheckIP : function(oEvent){
 
 			var oView = this.getView();
 			
@@ -52,16 +115,33 @@ sap.ui.define([
 				});
 		},
 
-		onMovePress: function (oEvent) {
+		bodyCheckIP : function(oEvent){
+
+			var oView = this.getView();
 			
-			this.onOpenDialog();
+			var oSwitch = oView.byId("bodySwitch");
+			var ip = oView.byId("bodySliderIP").getValue();
+			
+			$.getJSON("http://" + ip + "/position")
+				.error(function(error){
+					console.log(error);
+					oSwitch.setState(false);
+				})
+				.success(function(data){
+					oSwitch.setState(true);
+				});
+		},		
+
+		onMovePress : function (oEvent) {
+			
+			this.onOpenDialog("Moving XYZ...");
 
 			var oView = this.getView();
 
 			var robotModel = this.getModel("robotModel");
 			var oldData = robotModel.getData();
 
-			// TO DO send data
+			// base data
 			var baseIP = oView.byId("baseJointIP").getValue();
 			var baseSteps = oView.byId("baseJointSteps").getValue();
 			var baseAngle = oView.byId("baseJointAngle").getValue();
@@ -83,9 +163,32 @@ sap.ui.define([
 				baseDistance = Math.abs(baseDistance);
 			}
 
+			// body data
+			var bodyIP = oView.byId("baseJointIP").getValue();
+			var bodySteps = oView.byId("baseJointSteps").getValue();
+			var bodyAngle = oView.byId("baseJointAngle").getValue();
+
+			var bodyDir = '';
+			var bodyDistance = 0;
+
+			if (bodySteps > oldData.bodySteps){
+				bodyDir = '/right/';
+				bodyDistance = baseSteps - oldData.bodySteps;
+			}
+			else
+			{
+				bodyDir = '/left/';
+				bodyDistance = oldData.bodySteps - Math.abs(bodySteps);
+			}
+
+			if(bodyDistance < 0){
+				bodyDistance = Math.abs(bodyDistance);
+			}			
+
 			var oController = this;
 
 			async.parallel([
+					//move base
 					function(callback){
 						$.getJSON("http://" + baseIP + baseDir + baseDistance)
 							.error(function(error){
@@ -103,6 +206,25 @@ sap.ui.define([
 
 								callback(null, false);
 							});
+					},
+					// move body
+					function(callback){
+						$.getJSON("http://" + bodyIP + bodyDir + bodyDistance)
+							.error(function(error){
+								console.log(error);
+								callback(null, false);
+							})
+							.success(function(data){
+								
+								console.log(data);
+								
+								if(parseInt(data.message) === bodyDistance){
+									oldData.bodySteps = bodySteps;
+									callback(null, true);
+								}
+
+								callback(null, false);
+							});
 					}
 				], function(err, results){
 					
@@ -112,20 +234,36 @@ sap.ui.define([
 
 					oController._dialog.close();
 					
-					if (results[0] === true){
+					var ok = true;
+
+					$.each(results, function(index, res){
+						if(res !== true){
+							ok = false;
+						}
+					});
+
+					if (ok){
 						MessageToast.show("Moved OK !");
 					}else{
-						MessageToast.show("Failed...\r\nCheck console");
+						MessageToast.show("FAILED!\r\nCheck console...");
 					}
 				}
 			);
 		},
 
-		onOpenDialog: function (oEvent) {
+		onOpenDialog : function(title, text) {
+
+			if(title){
+				this.busyDialogModel.setProperty('/title', title);
+			}
+
+			if(text){
+				this.busyDialogModel.setProperty('/text', text);
+			}
 
 			// instantiate dialog
 			if (!this._dialog) {
-				this._dialog = sap.ui.xmlfragment("com.scara.robot.arm.view.fragments.BusyDialog", this);
+				this._dialog = sap.ui.xmlfragment("com.scara.robot.arm.view.dialogs.BusyDialog", this);
 				this.getView().addDependent(this._dialog);
 			}
 

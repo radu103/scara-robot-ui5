@@ -2,8 +2,8 @@
 	xmlns="sap.m"
 	xmlns:core="sap.ui.core">
 	<BusyDialog
-		title="Moving XYZ..."
-		text="waiting"
+		title="{busyDialog>/title}"
+		text="{busyDialog>/text}"
 		showCancelButton="false"
 		close="onDialogClosed"/>
 </core:FragmentDefinition>

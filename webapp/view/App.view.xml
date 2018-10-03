@@ -3,18 +3,23 @@
 	xmlns="sap.m"
 	xmlns:l="sap.ui.layout"
 	xmlns:core="sap.ui.core"
-	xmlns:html="http://www.w3.org/1999/xhtml"
 	xmlns:mvc="sap.ui.core.mvc"
 	displayBlock="true">
 	<App id="appView">
 		<pages>
 			<Page title="{i18n>title}">
 				<content>
-					<FlexBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center" width="auto">
+					<l:Grid class="sapUiResponsiveMargin" defaultSpan="XL3 L4 M6 S12">
 						<core:Fragment fragmentName="com.scara.robot.arm.view.fragments.BaseJoint" type="XML"/>
-					</FlexBox>
-					<Button text="Send New Values" press="onMovePress" type="Emphasized"/>
+						<core:Fragment fragmentName="com.scara.robot.arm.view.fragments.BodySlider" type="XML"/>
+					</l:Grid>
 				</content>
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button text="Send Values" class="sapUiResponsiveMargin" press="onMovePress" type="Emphasized"/>
+					</Toolbar>
+				</footer>				
 			</Page>
 		</pages>
 	</App>

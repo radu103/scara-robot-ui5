@@ -2,14 +2,14 @@
     xmlns="sap.m"
     xmlns:core="sap.ui.core">
 
-    <Panel id="baseJointPanel" width="auto" class="sapUiResponsiveMargin" expandable="false" expanded="true">
+    <Panel id="bodySliderPanel" width="auto" class="sapUiResponsiveMargin" expandable="false" expanded="true">
         <headerToolbar>
 			<Toolbar>
-                <core:Icon src="sap-icon://mirrored-task-circle-2"/>
-                <Title text="Base Rotate"/>
+                <core:Icon src="sap-icon://bullet-text"/>
+				<Title text="Body Slider"/>
                 <ToolbarSpacer/>
-                <Button icon="sap-icon://refresh" press="onBaseResetPress"/>
-                <Switch id="baseSwitch" type="AcceptReject" state="false" enabled="false">
+                <Button icon="sap-icon://refresh" press="onBodyResetPress"/>
+                <Switch id="bodySwitch" type="AcceptReject" state="false" enabled="false">
                     <layoutData>
                         <FlexItemData growFactor="1" />
                     </layoutData>
@@ -23,7 +23,7 @@
                     <Label text="IP" wrapping="false"/> 
                 </VBox>
                 <VBox>
-                    <Input id="baseJointIP" value="192.168.1.4" placeholder="i.i.i.i" width="200px" textAlign="Right" liveChange="baseCheckIP"/>
+                    <Input id="bodySliderIP" value="192.168.1.5" placeholder="i.i.i.i" width="200px" textAlign="Right" liveChange="bodyCheckIP"/>
                 </VBox>
             </HBox>
 
@@ -32,7 +32,7 @@
                     <Label text="Steps" wrapping="true"/>
                 </VBox>
                 <VBox>
-                    <StepInput id="baseJointSteps" value="0" displayValuePrecision="0" min="-180" max="180" step="1" width="200px"/>
+                    <StepInput id="bodySliderSteps" value="0" displayValuePrecision="0" min="0" max="4400" step="1" width="200px"/>
                 </VBox>
             </HBox>
 
@@ -41,7 +41,7 @@
                     <Label text="Angle" wrapping="true"/>
                 </VBox>
                 <VBox>
-                    <StepInput id="baseJointAngle" value="0" displayValuePrecision="2" min="-180" max="180" step="10" width="200px"/>
+                    <StepInput id="bodySliderAngle" value="0" displayValuePrecision="2" min="-180" max="180" step="10" width="200px"/>
                 </VBox>
             </HBox>
 
