@@ -76,7 +76,11 @@ sap.ui.define([
 			else
 			{
 				baseDir = '/left/';
-				baseDistance = oldData.baseSteps - baseSteps;
+				baseDistance = oldData.baseSteps - Math.abs(baseSteps);
+			}
+
+			if(baseDistance < 0){
+				baseDistance = Math.abs(baseDistance);
 			}
 
 			var oController = this;
@@ -86,19 +90,33 @@ sap.ui.define([
 						$.getJSON("http://" + baseIP + baseDir + baseDistance)
 							.error(function(error){
 								console.log(error);
-								callback();
+								callback(null, false);
 							})
 							.success(function(data){
+								
 								console.log(data);
-								oldData.baseSteps = baseSteps;
-								callback();
+								
+								if(parseInt(data.message) === baseDistance){
+									oldData.baseSteps = baseSteps;
+									callback(null, true);
+								}
+
+								callback(null, false);
 							});
 					}
-				], function(res){
-					oController._dialog.close();
-					robotModel.setData(oldData);
+				], function(err, results){
+					
+					if (err) {
+						throw err;
+					}
 
-					MessageToast.show("Moved OK !");
+					oController._dialog.close();
+					
+					if (results[0] === true){
+						MessageToast.show("Moved OK !");
+					}else{
+						MessageToast.show("Failed...\r\nCheck console");
+					}
 				}
 			);
 		},
