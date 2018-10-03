@@ -10,13 +10,10 @@
 		<pages>
 			<Page title="{i18n>title}">
 				<content>
-					<VBox width="auto" alignItems="Center" class="sapUiResponsiveMargin">
-						<core:Fragment id="baseJointFragment" fragmentName="com.scara.robot.arm.view.fragments.RobotJoint" type="XML"/>
-						<core:Fragment id="bodySliderFragment" fragmentName="com.scara.robot.arm.view.fragments.RobotJoint" type="XML"/>
-						<core:Fragment id="armJointFragment" fragmentName="com.scara.robot.arm.view.fragments.RobotJoint" type="XML"/>
-						<core:Fragment id="toolFragment" fragmentName="com.scara.robot.arm.view.fragments.RobotJoint" type="XML"/>
-						<Button text="Send New Values" press="onMovePress" type="Emphasized"/>
-					</VBox>
+					<FlexBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center" width="auto">
+						<core:Fragment fragmentName="com.scara.robot.arm.view.fragments.BaseJoint" type="XML"/>
+					</FlexBox>
+					<Button text="Send New Values" press="onMovePress" type="Emphasized"/>
 				</content>
 			</Page>
 		</pages>

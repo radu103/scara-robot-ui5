@@ -11,14 +11,6 @@
       "version": "0.0.1"
     },
     "dataSources": {
-      "RMTSAMPLEFLIGHT": {
-        "uri": "/",
-        "type": "OData",
-        "settings": {
-          "odataVersion": "2.0",
-          "localUri": "localService/metadata.xml"
-        }
-      }
     },
     "sourceTemplate": {
       "id": "ui5template.basicSAPUI5ApplicationProject",
@@ -58,14 +50,6 @@
         "settings": {
           "bundleName": "com.scara.robot.arm.i18n.i18n"
         }
-      },
-      "odata": {
-        "type": "sap.ui.model.odata.v2.ODataModel",
-        "dataSource": "RMTSAMPLEFLIGHT",
-        "settings": {
-          "defaultBindingMode": "TwoWay"
-        },
-        "preload": true
       }
     },
     "rootView": {
