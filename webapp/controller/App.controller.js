@@ -156,7 +156,7 @@ sap.ui.define([
 			else
 			{
 				baseDir = '/left/';
-				baseDistance = oldData.baseSteps - Math.abs(baseSteps);
+				baseDistance = Math.abs(oldData.baseSteps - baseSteps);
 			}
 
 			if(baseDistance < 0){
@@ -178,7 +178,7 @@ sap.ui.define([
 			else
 			{
 				bodyDir = '/left/';
-				bodyDistance = oldData.bodySteps - Math.abs(bodySteps);
+				bodyDistance = Math.abs(oldData.bodySteps - bodySteps);
 			}
 
 			if(bodyDistance < 0){
@@ -190,6 +190,11 @@ sap.ui.define([
 			async.parallel([
 					//move base
 					function(callback){
+
+						if (baseDistance === 0){
+							callback(null, true);
+						}
+
 						$.getJSON("http://" + baseIP + baseDir + baseDistance)
 							.error(function(error){
 								console.log(error);
@@ -199,16 +204,21 @@ sap.ui.define([
 								
 								console.log(data);
 								
-								if(parseInt(data.message) === baseDistance){
+								if (parseInt(data.message, 10) === baseDistance){
 									oldData.baseSteps = baseSteps;
 									callback(null, true);
-								}
-
-								callback(null, false);
+								} else {
+									callback(null, false);
+								}	
 							});
 					},
 					// move body
 					function(callback){
+
+						if (bodyDistance === 0){
+							callback(null, true);
+						}
+
 						$.getJSON("http://" + bodyIP + bodyDir + bodyDistance)
 							.error(function(error){
 								console.log(error);
@@ -218,12 +228,12 @@ sap.ui.define([
 								
 								console.log(data);
 								
-								if(parseInt(data.message) === bodyDistance){
+								if (parseInt(data.message, 10) === bodyDistance){
 									oldData.bodySteps = bodySteps;
 									callback(null, true);
+								} else {
+									callback(null, false);
 								}
-
-								callback(null, false);
 							});
 					}
 				], function(err, results){
@@ -237,14 +247,14 @@ sap.ui.define([
 					var ok = true;
 
 					$.each(results, function(index, res){
-						if(res !== true){
+						if (res !== true){
 							ok = false;
 						}
 					});
 
 					if (ok){
 						MessageToast.show("Moved OK !");
-					}else{
+					} else {
 						MessageToast.show("FAILED!\r\nCheck console...");
 					}
 				}
