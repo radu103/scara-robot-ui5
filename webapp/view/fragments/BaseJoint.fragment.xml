@@ -23,7 +23,7 @@
                     <Label text="IP" wrapping="false"/> 
                 </VBox>
                 <VBox>
-                    <Input id="baseJointIP" value="192.168.1.4" placeholder="i.i.i.i" width="200px" textAlign="Right" liveChange="baseCheckIP"/>
+                    <Input id="baseJointIP" value="192.168.1.12" placeholder="i.i.i.i" width="200px" textAlign="Right" liveChange="baseCheckIP"/>
                 </VBox>
             </HBox>
 

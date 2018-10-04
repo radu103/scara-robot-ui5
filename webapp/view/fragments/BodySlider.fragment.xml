@@ -23,7 +23,7 @@
                     <Label text="IP" wrapping="false"/> 
                 </VBox>
                 <VBox>
-                    <Input id="bodySliderIP" value="192.168.1.5" placeholder="i.i.i.i" width="200px" textAlign="Right" liveChange="bodyCheckIP"/>
+                    <Input id="bodySliderIP" value="192.168.1.4" placeholder="i.i.i.i" width="200px" textAlign="Right" liveChange="bodyCheckIP"/>
                 </VBox>
             </HBox>
 

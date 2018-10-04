@@ -164,16 +164,16 @@ sap.ui.define([
 			}
 
 			// body data
-			var bodyIP = oView.byId("baseJointIP").getValue();
-			var bodySteps = oView.byId("baseJointSteps").getValue();
-			var bodyAngle = oView.byId("baseJointAngle").getValue();
+			var bodyIP = oView.byId("bodySliderIP").getValue();
+			var bodySteps = oView.byId("bodySliderSteps").getValue();
+			var bodyAngle = oView.byId("bodySliderAngle").getValue();
 
 			var bodyDir = '';
 			var bodyDistance = 0;
 
 			if (bodySteps > oldData.bodySteps){
 				bodyDir = '/right/';
-				bodyDistance = baseSteps - oldData.bodySteps;
+				bodyDistance = bodySteps - oldData.bodySteps;
 			}
 			else
 			{

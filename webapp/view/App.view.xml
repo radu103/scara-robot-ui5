@@ -9,7 +9,7 @@
 		<pages>
 			<Page title="{i18n>title}">
 				<content>
-					<l:Grid class="sapUiResponsiveMargin" defaultSpan="XL3 L4 M6 S12">
+					<l:Grid class="sapUiResponsiveMargin" defaultSpan="XL4 L4 M6 S12">
 						<core:Fragment fragmentName="com.scara.robot.arm.view.fragments.BaseJoint" type="XML"/>
 						<core:Fragment fragmentName="com.scara.robot.arm.view.fragments.BodySlider" type="XML"/>
 					</l:Grid>
