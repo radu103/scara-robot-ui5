@@ -32,7 +32,7 @@
                     <Label text="Steps" wrapping="true"/>
                 </VBox>
                 <VBox>
-                    <StepInput id="bodySliderSteps" value="0" displayValuePrecision="0" min="0" max="4400" step="1" width="200px"/>
+                    <StepInput id="bodySliderSteps" value="0" displayValuePrecision="0" min="0" max="13200" step="1" width="200px"/>
                 </VBox>
             </HBox>
 
