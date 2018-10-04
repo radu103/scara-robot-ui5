@@ -45,6 +45,19 @@
                 </VBox>
             </HBox>
 
+            <HBox class="sapUiTinyMargin" justifyContent="SpaceBetween" alignItems="Center" width="auto">
+                <VBox class="sapUiSmallMarginEnd">
+                    <Label text="Driver Status" wrapping="true"/>
+                </VBox>
+                <VBox>
+                    <Switch id="baseJointDriverEnabled" type="AcceptReject" state="true" enabled="true" change="baseJointDriverSwitchChanged">
+                        <layoutData>
+                            <FlexItemData growFactor="1" />
+                        </layoutData>
+                    </Switch>
+                </VBox>
+            </HBox>       
+
         </content>
     </Panel>
 

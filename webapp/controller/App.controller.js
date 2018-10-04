@@ -130,6 +130,67 @@ sap.ui.define([
 				.success(function(data){
 					oSwitch.setState(true);
 				});
+		},
+		
+		baseJointDriverSwitchChanged : function(oEvent){
+			var oView = this.getView();
+			var ip = oView.byId("baseJointIP").getValue();
+
+			var oSwitch = oEvent.getSource();
+			
+			if(oSwitch.getState()){
+				$.getJSON("http://" + ip + "/enabled")
+					.error(function(error){
+						console.log(error);
+						oSwitch.setState(false);
+						MessageToast.show("Failed to enable");
+					})
+					.success(function(data){
+						MessageToast.show("Driver enabled");
+					});
+			}
+			else{
+				$.getJSON("http://" + ip + "/disabled")
+					.error(function(error){
+						console.log(error);
+						oSwitch.setState(true);
+						MessageToast.show("Failed to disable");
+					})
+					.success(function(data){
+						MessageToast.show("Driver disabled");
+					});
+			}
+		},
+
+		bodyJointDriverSwitchChanged : function(oEvent){
+			
+			var oView = this.getView();
+			var ip = oView.byId("bodySliderIP").getValue();
+
+			var oSwitch = oEvent.getSource();
+			
+			if(oSwitch.getState()){
+				$.getJSON("http://" + ip + "/enabled")
+					.error(function(error){
+						console.log(error);
+						oSwitch.setState(false);
+						MessageToast.show("Failed to enable");
+					})
+					.success(function(data){
+						MessageToast.show("Driver enabled");
+					});
+			}
+			else{
+				$.getJSON("http://" + ip + "/disabled")
+					.error(function(error){
+						console.log(error);
+						oSwitch.setState(true);
+						MessageToast.show("Failed to disable");
+					})
+					.success(function(data){
+						MessageToast.show("Driver disabled");
+					});
+			}
 		},		
 
 		onMovePress : function (oEvent) {
